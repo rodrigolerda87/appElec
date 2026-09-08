@@ -1,0 +1,6 @@
+{
+  "name": "pilo-presupuestos-tools",
+  "private": true,
+  "type": "module",
+  "description": "Script de chequeo automático de precios AAIERIC (usado por GitHub Actions). No hace falta tocar este archivo."
+}

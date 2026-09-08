@@ -1,0 +1,1214 @@
+{
+  "fuente": "AAIERIC - Asociación Argentina de Instaladores Electricistas (aaieric.org.ar/costos-mano-de-obra)",
+  "region": "CABA y GBA",
+  "periodo": "Julio 2026",
+  "variacionMesAnterior": 1.9,
+  "moneda": "ARS",
+  "actualizado": "2026-08-17T00:00:00.000Z",
+  "categorias": [
+    {
+      "id": "generales",
+      "nombre": "Generales",
+      "items": [
+        {
+          "id": "gen-visita",
+          "label": "Visita: inspección ocular, evaluación, diagnóstico, asesoramiento y presupuesto",
+          "unidad": "unidad",
+          "precio": 54310,
+          "match": {
+            "label": "Visita: Inspección Ocular, Evaluación, Diagnóstico, Asesoramiento y Presupuesto",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "gen-urgencia",
+          "label": "Urgencia (lunes a sábado desde 20 hs / domingo y feriado) - mínimo",
+          "unidad": "unidad",
+          "precio": 130203,
+          "match": {
+            "label": "Urgencia: Lunes a Sabado a partir 20:00 hs",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "gen-unidad-basica",
+          "label": "Unidad básica de cotización (1 boca completa)",
+          "unidad": "boca",
+          "precio": 108431,
+          "match": {
+            "label": "Unidad básica de cotización para todo trabajo eléctrico: 1(una) boca completa.",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "gen-service",
+          "label": "Service - Instalación (mínimo)",
+          "unidad": "unidad",
+          "precio": 108431,
+          "match": {
+            "label": "Service - Instalación (mínimo)",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "gen-hora-minimo",
+          "label": "Hora de trabajo (mínimo)",
+          "unidad": "hora",
+          "precio": 54310,
+          "match": {
+            "label": "Hora de Trabajo (mínimo)",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "gen-hora-promedio",
+          "label": "Hora de trabajo (promedio)",
+          "unidad": "hora",
+          "precio": 54310,
+          "match": {
+            "label": "Hora de Trabajo (promedio)",
+            "occurrence": 1,
+            "column": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "canalizacion-losa",
+      "nombre": "Canalización de cañería en losa",
+      "items": [
+        {
+          "id": "losa-metalico",
+          "label": "En losa con caño metálico",
+          "unidad": "boca",
+          "precio": 54894,
+          "match": {
+            "label": "En losa con caño metálico",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "loseta-metalico",
+          "label": "En loseta con caño metálico",
+          "unidad": "boca",
+          "precio": 57637,
+          "match": {
+            "label": "En loseta con caño metálico",
+            "occurrence": 1,
+            "column": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "amurado-manposteria",
+      "nombre": "Amurado de cañería en mampostería",
+      "items": [
+        {
+          "id": "amurado-ladrillo-comun-boca",
+          "label": "Ladrillo común (por boca)",
+          "unidad": "boca",
+          "precio": 62382,
+          "match": {
+            "label": "Ladrillo común",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "amurado-ladrillo-hueco-boca",
+          "label": "Ladrillo hueco (por boca)",
+          "unidad": "boca",
+          "precio": 60900,
+          "match": {
+            "label": "Ladrillo hueco",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "amurado-ladrillo-comun-metro",
+          "label": "Ladrillo común (por metro)",
+          "unidad": "metro",
+          "precio": 14909,
+          "match": {
+            "label": "Ladrillo común",
+            "occurrence": 2,
+            "column": 0
+          }
+        },
+        {
+          "id": "amurado-ladrillo-hueco-metro",
+          "label": "Ladrillo hueco (por metro)",
+          "unidad": "metro",
+          "precio": 14618,
+          "match": {
+            "label": "Ladrillo hueco",
+            "occurrence": 2,
+            "column": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "amurado-vista",
+      "nombre": "Amurado de cañería a la vista",
+      "items": [
+        {
+          "id": "amurado-vista-metal-pvc",
+          "label": "Metal, PVC, Cablecanal (14x30)",
+          "unidad": "boca",
+          "precio": 49861,
+          "match": {
+            "label": "Metal, PVC, Cablecanal (14x30)",
+            "occurrence": 1,
+            "column": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "pase-viga",
+      "nombre": "Pase de viga y/o columna",
+      "items": [
+        {
+          "id": "pase-viga-boca",
+          "label": "A razón de 1 boca en viga y/o columna",
+          "unidad": "boca",
+          "precio": 57898,
+          "match": {
+            "label": "A razón de 1 (una) boca en viga y/o columna",
+            "occurrence": 1,
+            "column": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "cable-subterraneo",
+      "nombre": "Cable subterráneo",
+      "items": [
+        {
+          "id": "subterraneo-tierra",
+          "label": "Cotización por metro - en tierra (1 boca c/1m)",
+          "unidad": "metro",
+          "precio": 54260,
+          "match": {
+            "label": "Se cotizará a razón de 1(una) boca cada 1m",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "subterraneo-piso",
+          "label": "Cotización por metro - en piso (1 boca c/1m)",
+          "unidad": "metro",
+          "precio": 57898,
+          "match": {
+            "label": "Se cotizará a razón de 1(una) boca cada 1m",
+            "occurrence": 1,
+            "column": 1
+          }
+        },
+        {
+          "id": "subterraneo-caja-tierra",
+          "label": "Adicional por caja de paso - en tierra",
+          "unidad": "unidad",
+          "precio": 59587,
+          "match": {
+            "label": "Adicional por cada caja de paso",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "subterraneo-caja-piso",
+          "label": "Adicional por caja de paso - en piso",
+          "unidad": "unidad",
+          "precio": 63628,
+          "match": {
+            "label": "Adicional por cada caja de paso",
+            "occurrence": 1,
+            "column": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "cableado",
+      "nombre": "Cableado",
+      "items": [
+        {
+          "id": "cableado-opcion1",
+          "label": "Obra nueva - canalización realizada por el profesional",
+          "unidad": "boca",
+          "precio": 26680,
+          "match": {
+            "label": "Canalización realizada por el profesional",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "cableado-opcion2",
+          "label": "Obra nueva - canalización realizada por otro profesional",
+          "unidad": "boca",
+          "precio": 37149,
+          "match": {
+            "label": "Canalización realizada por otro profesional",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "recableado-con-artefactos",
+          "label": "Recableado con artefactos (1)",
+          "unidad": "boca",
+          "precio": 55707,
+          "match": {
+            "label": "Recableado con artefactos (1)",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "recableado-sin-artefactos",
+          "label": "Recableado sin artefactos (1)",
+          "unidad": "boca",
+          "precio": 37149,
+          "match": {
+            "label": "Recableado sin artefactos (1)",
+            "occurrence": 1,
+            "column": 0
+          }
+        }
+      ],
+      "nota": "(1) No incluye cables pegados a la cañería u otro vicio oculto, se cotiza en el momento."
+    },
+    {
+      "id": "puntos-tomas",
+      "nombre": "Conexión de puntos y tomas",
+      "items": [
+        {
+          "id": "punto-simple",
+          "label": "Punto, toma simple, portalámpara",
+          "unidad": "boca",
+          "precio": 19363,
+          "match": {
+            "label": "Punto, toma simple, portalámpara",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "toma-doble",
+          "label": "Toma doble",
+          "unidad": "boca",
+          "precio": 24525,
+          "match": {
+            "label": "Toma doble",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "punto-combinacion",
+          "label": "Punto combinación",
+          "unidad": "boca",
+          "precio": 20842,
+          "match": {
+            "label": "Punto Combinación",
+            "occurrence": 1,
+            "column": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "tableros-monofasicos",
+      "nombre": "Tableros - TP Monofásicos",
+      "items": [
+        {
+          "id": "tp-mono-completo",
+          "label": "Tablero principal con 1 ID y 1 TM + PAT",
+          "unidad": "unidad",
+          "precio": 320310,
+          "match": {
+            "label": "Tablero Principal con 1 ID y 1 TM + PAT",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "tp-mono-solo-pat",
+          "label": "Solo PAT",
+          "unidad": "unidad",
+          "precio": 162585,
+          "match": {
+            "label": "Solo PAT",
+            "occurrence": 1,
+            "column": 0
+          }
+        }
+      ],
+      "nota": "Incluye canalización, amurado y conexión."
+    },
+    {
+      "id": "tableros-trifasicos",
+      "nombre": "Tableros - TP Trifásicos",
+      "items": [
+        {
+          "id": "tp-tri-completo",
+          "label": "Tablero principal con 1 ID y 1 TM + PAT",
+          "unidad": "unidad",
+          "precio": 433760,
+          "match": {
+            "label": "Tablero Principal con 1 ID y 1 TM + PAT",
+            "occurrence": 2,
+            "column": 0
+          }
+        },
+        {
+          "id": "tp-tri-modulo-adicional",
+          "label": "ID, ITM u otro módulo bipolar adicional",
+          "unidad": "unidad",
+          "precio": 78754,
+          "match": {
+            "label": "ID, ITM u otro módulo bipolar adicional",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "tp-tri-id-tetra",
+          "label": "ID tetrapolar",
+          "unidad": "unidad",
+          "precio": 135580,
+          "match": {
+            "label": "ID tetrapolar",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "tp-tri-itm-tetra",
+          "label": "ITM tetrapolar",
+          "unidad": "unidad",
+          "precio": 135580,
+          "match": {
+            "label": "ITM tetrapolar",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "tp-tri-itm-tri",
+          "label": "ITM tripolar",
+          "unidad": "unidad",
+          "precio": 114381,
+          "match": {
+            "label": "ITM tripolar",
+            "occurrence": 1,
+            "column": 0
+          }
+        }
+      ],
+      "nota": "Incluye canalización, amurado y conexión."
+    },
+    {
+      "id": "tableros-seccionales",
+      "nombre": "Tableros seccionales",
+      "items": [
+        {
+          "id": "seccional-8",
+          "label": "Hasta 8 polos",
+          "unidad": "unidad",
+          "precio": 227652,
+          "match": {
+            "label": "Hasta 8 polos",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "seccional-8-36",
+          "label": "De 8 a 36 polos",
+          "unidad": "unidad",
+          "precio": 910719,
+          "match": {
+            "label": "De 8 a 36 polos",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "seccional-36-54",
+          "label": "De 36 a 54 polos",
+          "unidad": "unidad",
+          "precio": 1366016,
+          "match": {
+            "label": "De 36 a 54 polos",
+            "occurrence": 1,
+            "column": 0
+          }
+        }
+      ],
+      "nota": "Tableros especiales: a criterio del instalador según variables."
+    },
+    {
+      "id": "artefactos",
+      "nombre": "Artefactos de iluminación y otros",
+      "items": [
+        {
+          "id": "aplique-simple",
+          "label": "Artefacto aplique simple",
+          "unidad": "unidad",
+          "precio": 29715
+        },
+        {
+          "id": "spot-led",
+          "label": "Spot LED por unidad",
+          "unidad": "unidad",
+          "precio": 29715,
+          "match": {
+            "label": "Spot Led por unidad",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "colgante-3luces",
+          "label": "Artefacto colgante liviano 3 luces, 1 efecto",
+          "unidad": "unidad",
+          "precio": 59431,
+          "match": {
+            "label": "Artefacto colgante liviano 3 luces 1 efecto",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "colgante-5luces",
+          "label": "Artefacto colgante liviano 5 luces, 1 efecto",
+          "unidad": "unidad",
+          "precio": 78730,
+          "match": {
+            "label": "Artefacto colgante liviano 5 luces 1 efecto",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "colgante-adicional-efecto",
+          "label": "Artefacto colgante - adicional por efecto",
+          "unidad": "unidad",
+          "precio": 19363,
+          "match": {
+            "label": "Artefacto colgante. Adicional x efecto",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "colgante-pesado",
+          "label": "Artefacto colgante pesado (mínimo)",
+          "unidad": "unidad",
+          "precio": 103978,
+          "match": {
+            "label": "Artefacto colgante pesado - Mínimo",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "tubo-led-simple",
+          "label": "Equipo de tubo LED simple, 7 a 36 W",
+          "unidad": "unidad",
+          "precio": 59431,
+          "match": {
+            "label": "Equipo de tubo Led simple de 7 W a 36 W",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "tubo-led-doble",
+          "label": "Equipo de tubo LED doble, 7 a 36 W",
+          "unidad": "unidad",
+          "precio": 73159,
+          "match": {
+            "label": "Equipo de tubo Led doble de 7 W a 36 W",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "tubo-led-45",
+          "label": "Equipo de tubo LED 45 W",
+          "unidad": "unidad",
+          "precio": 74319,
+          "match": {
+            "label": "Equipo de tubo Led 45 W",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "tubo-led-doble-45",
+          "label": "Equipo de tubo LED doble 45 W",
+          "unidad": "unidad",
+          "precio": 92225,
+          "match": {
+            "label": "Equipo de tubo Led doble 45 W",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "ventilador-techo",
+          "label": "Ventilador de techo",
+          "unidad": "unidad",
+          "precio": 108431,
+          "match": {
+            "label": "Ventilador de techo",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "ventilador-luminaria",
+          "label": "Ventilador de techo con luminaria, 1 efecto",
+          "unidad": "unidad",
+          "precio": 135580,
+          "match": {
+            "label": "Ventilador de techo con luminaria 1 efecto",
+            "occurrence": 1,
+            "column": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "acometida",
+      "nombre": "Acometida (amurado + conexión)",
+      "items": [
+        {
+          "id": "gabinete-1medidor",
+          "label": "Gabinete 1 medidor monofásico",
+          "unidad": "unidad",
+          "precio": 227652,
+          "match": {
+            "label": "Gabinete 1 Medidor Monofásico",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "gabinete-2medidores",
+          "label": "Gabinete 2 medidores monofásicos",
+          "unidad": "unidad",
+          "precio": 325340,
+          "match": {
+            "label": "Gabinete 2 Medidores Monofásicos",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "gabinete-3medidores",
+          "label": "Gabinete 3 medidores monofásicos *",
+          "unidad": "unidad",
+          "precio": 758988,
+          "match": {
+            "label": "Gabinete 3 Medidores Monofásicos",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "gabinete-4medidores",
+          "label": "Gabinete 4 medidores monofásicos *",
+          "unidad": "unidad",
+          "precio": 867405,
+          "match": {
+            "label": "Gabinete 4 Medidores Monofásicos",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "pat-servicio",
+          "label": "PAT de servicio (jabalina + caja de inspección)",
+          "unidad": "unidad",
+          "precio": 162585,
+          "match": {
+            "label": "PAT de Servicio (jabalina + caja de insp.)",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "pilar-completo",
+          "label": "Pilar completo (gabinete, TP, caño y PAT)",
+          "unidad": "unidad",
+          "precio": 894456,
+          "match": {
+            "label": "Pilar completo (Gabinete, TP, Caño y PAT)",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "cano-acometida",
+          "label": "Caño de acometida (amurado y conexión)",
+          "unidad": "unidad",
+          "precio": 227652,
+          "match": {
+            "label": "Caño de acometida (amurado y conexión)",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "caja-toma-fusilera",
+          "label": "Caja de toma (fusilera NH 00)",
+          "unidad": "unidad",
+          "precio": 325340,
+          "match": {
+            "label": "Caja de Toma (Fusilera NH 00)",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "agregado-gabinete-tp",
+          "label": "Agregado de un gabinete de medidor + TP",
+          "unidad": "unidad",
+          "precio": 325340,
+          "match": {
+            "label": "Agregado de un gabinete de medidor + TP",
+            "occurrence": 1,
+            "column": 0
+          }
+        }
+      ],
+      "nota": "* Se incluye caja de toma 63A (EDENOR-EDESUR)."
+    },
+    {
+      "id": "bandejas",
+      "nombre": "Bandejas portacables (por metro)",
+      "items": [
+        {
+          "id": "bandeja150-metro-h3menos",
+          "label": "Hasta 150mm - metro lineal (H<3m)",
+          "unidad": "metro",
+          "precio": 13163,
+          "match": {
+            "label": "Por metro lineal",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "bandeja150-metro-h3mas",
+          "label": "Hasta 150mm - metro lineal (H>3m)",
+          "unidad": "metro",
+          "precio": 16465,
+          "match": {
+            "label": "Por metro lineal",
+            "occurrence": 1,
+            "column": 1
+          }
+        },
+        {
+          "id": "bandeja150-accesorio-h3menos",
+          "label": "Hasta 150mm - accesorio: curva plana/unión T (H<3m)",
+          "unidad": "unidad",
+          "precio": 17577,
+          "match": {
+            "label": "Por c/accesorio (Curva plana, Unión T)",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "bandeja150-accesorio-h3mas",
+          "label": "Hasta 150mm - accesorio: curva plana/unión T (H>3m)",
+          "unidad": "unidad",
+          "precio": 20793,
+          "match": {
+            "label": "Por c/accesorio (Curva plana, Unión T)",
+            "occurrence": 1,
+            "column": 1
+          }
+        },
+        {
+          "id": "bandeja150-otros-h3menos",
+          "label": "Hasta 150mm - otros accesorios (H<3m)",
+          "unidad": "unidad",
+          "precio": 8793,
+          "match": {
+            "label": "Otros accesorios",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "bandeja150-otros-h3mas",
+          "label": "Hasta 150mm - otros accesorios (H>3m)",
+          "unidad": "unidad",
+          "precio": 25265,
+          "match": {
+            "label": "Otros accesorios",
+            "occurrence": 1,
+            "column": 1
+          }
+        },
+        {
+          "id": "bandeja300-metro-h3menos",
+          "label": "200/300mm - metro lineal (H<3m)",
+          "unidad": "metro",
+          "precio": 19733,
+          "match": {
+            "label": "Por metro lineal",
+            "occurrence": 2,
+            "column": 0
+          }
+        },
+        {
+          "id": "bandeja300-metro-h3mas",
+          "label": "200/300mm - metro lineal (H>3m)",
+          "unidad": "metro",
+          "precio": 16897,
+          "match": {
+            "label": "Por metro lineal",
+            "occurrence": 2,
+            "column": 1
+          }
+        },
+        {
+          "id": "bandeja300-accesorio-h3menos",
+          "label": "200/300mm - accesorio: curva plana/unión T (H<3m)",
+          "unidad": "unidad",
+          "precio": 26355,
+          "match": {
+            "label": "Por c/accesorio (Curva plana, Unión T)",
+            "occurrence": 2,
+            "column": 0
+          }
+        },
+        {
+          "id": "bandeja300-accesorio-h3mas",
+          "label": "200/300mm - accesorio: curva plana/unión T (H>3m)",
+          "unidad": "unidad",
+          "precio": 25450,
+          "match": {
+            "label": "Por c/accesorio (Curva plana, Unión T)",
+            "occurrence": 2,
+            "column": 1
+          }
+        },
+        {
+          "id": "bandeja300-otros-h3menos",
+          "label": "200/300mm - otros accesorios (H<3m)",
+          "unidad": "unidad",
+          "precio": 13163,
+          "match": {
+            "label": "Otros accesorios",
+            "occurrence": 2,
+            "column": 0
+          }
+        },
+        {
+          "id": "bandeja300-otros-h3mas",
+          "label": "200/300mm - otros accesorios (H>3m)",
+          "unidad": "unidad",
+          "precio": 33945,
+          "match": {
+            "label": "Otros accesorios",
+            "occurrence": 2,
+            "column": 1
+          }
+        },
+        {
+          "id": "bandeja600-metro-h3menos",
+          "label": "450/600mm - metro lineal (H<3m)",
+          "unidad": "metro",
+          "precio": 26979,
+          "match": {
+            "label": "Por metro lineal",
+            "occurrence": 3,
+            "column": 0
+          }
+        },
+        {
+          "id": "bandeja600-metro-h3mas",
+          "label": "450/600mm - metro lineal (H>3m)",
+          "unidad": "metro",
+          "precio": 23578,
+          "match": {
+            "label": "Por metro lineal",
+            "occurrence": 3,
+            "column": 1
+          }
+        },
+        {
+          "id": "bandeja600-accesorio-h3menos",
+          "label": "450/600mm - accesorio: curva plana/unión T (H<3m)",
+          "unidad": "unidad",
+          "precio": 39424,
+          "match": {
+            "label": "Por c/accesorio (Curva plana, Unión T)",
+            "occurrence": 3,
+            "column": 0
+          }
+        },
+        {
+          "id": "bandeja600-accesorio-h3mas",
+          "label": "450/600mm - accesorio: curva plana/unión T (H>3m)",
+          "unidad": "unidad",
+          "precio": 35234,
+          "match": {
+            "label": "Por c/accesorio (Curva plana, Unión T)",
+            "occurrence": 3,
+            "column": 1
+          }
+        },
+        {
+          "id": "bandeja600-otros-h3menos",
+          "label": "450/600mm - otros accesorios (H<3m)",
+          "unidad": "unidad",
+          "precio": 17146,
+          "match": {
+            "label": "Otros accesorios",
+            "occurrence": 3,
+            "column": 0
+          }
+        },
+        {
+          "id": "bandeja600-otros-h3mas",
+          "label": "450/600mm - otros accesorios (H>3m)",
+          "unidad": "unidad",
+          "precio": 47017,
+          "match": {
+            "label": "Otros accesorios",
+            "occurrence": 3,
+            "column": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "emergencia",
+      "nombre": "Emergencia / urgencia y factor de potencia",
+      "items": [
+        {
+          "id": "emergencia-atencion",
+          "label": "Atención inmediata, lunes a sábado 8 a 20 hs",
+          "unidad": "unidad",
+          "precio": 108431,
+          "match": {
+            "label": "Lun. a Sáb. 8 a 20 hs. Atención inmediata",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "correccion-fp",
+          "label": "Corrección factor de potencia monofásico, por kVA",
+          "unidad": "kVA",
+          "precio": 140873,
+          "match": {
+            "label": "Por cada kVA",
+            "occurrence": 1,
+            "column": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "automatismos",
+      "nombre": "Automatismos",
+      "items": [
+        {
+          "id": "contactores",
+          "label": "Contactores",
+          "unidad": "unidad",
+          "precio": 135580,
+          "match": {
+            "label": "Contactores",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "sensores",
+          "label": "Sensores (agregar costo de cableado aparte)",
+          "unidad": "unidad",
+          "precio": 119275,
+          "match": {
+            "label": "Sensores (se debe agregar costo cableado)",
+            "occurrence": 1,
+            "column": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "documentacion",
+      "nombre": "Documentación técnica",
+      "items": [
+        {
+          "id": "proyecto-electrico-m2",
+          "label": "Proyecto eléctrico, por m² (mínimo 30m²)",
+          "unidad": "m2",
+          "precio": 15900,
+          "match": {
+            "label": "Mínimo por m2",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "proyecto-electrico-minimo",
+          "label": "Proyecto eléctrico - mínimo de proyecto",
+          "unidad": "unidad",
+          "precio": 552176,
+          "match": {
+            "label": "Mínimo Proyecto",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "plano-electrico-m2",
+          "label": "Plano eléctrico, por m² (mínimo 30m²)",
+          "unidad": "m2",
+          "precio": 14680,
+          "match": {
+            "label": "Mínimo por m2",
+            "occurrence": 2,
+            "column": 0
+          }
+        },
+        {
+          "id": "plano-electrico-boca",
+          "label": "Plano eléctrico, por boca",
+          "unidad": "boca",
+          "precio": 12702,
+          "match": {
+            "label": "por boca = $",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "plano-electrico-tableros",
+          "label": "Plano eléctrico - tableros",
+          "unidad": "unidad",
+          "precio": 32438,
+          "match": {
+            "label": "Tableros = $",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "plano-electrico-acometida",
+          "label": "Plano eléctrico - acometida",
+          "unidad": "unidad",
+          "precio": 32438,
+          "match": {
+            "label": "Acometida = $",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "plano-electrico-minimo30",
+          "label": "Plano eléctrico - mínimo 30 bocas",
+          "unidad": "unidad",
+          "precio": 658849,
+          "match": {
+            "label": "Mínimo 30 Bocas = $",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "lista-materiales-30m2",
+          "label": "Lista de materiales - mínimo para 30m²",
+          "unidad": "unidad",
+          "precio": 64986,
+          "match": {
+            "label": "Mínimo para 30m2",
+            "occurrence": 1,
+            "column": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "jornales",
+      "nombre": "Jornales (mano de obra contratada, 8 hs)",
+      "items": [
+        {
+          "id": "jornal-oficial-especializado",
+          "label": "Oficial especializado",
+          "unidad": "jornal",
+          "precio": 49514,
+          "match": {
+            "label": "Oficial Especializado",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "jornal-oficial-electricista",
+          "label": "Oficial electricista",
+          "unidad": "jornal",
+          "precio": 42354,
+          "match": {
+            "label": "Oficial Electricista",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "jornal-medio-oficial",
+          "label": "Medio oficial electricista",
+          "unidad": "jornal",
+          "precio": 39140,
+          "match": {
+            "label": "Medio Oficial Electricista",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "jornal-ayudante",
+          "label": "Ayudante",
+          "unidad": "jornal",
+          "precio": 36027,
+          "match": {
+            "label": "Ayudante",
+            "occurrence": 1,
+            "column": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "certificados",
+      "nombre": "Certificados DCI - CAIE (ref. CTPBA)",
+      "items": [
+        {
+          "id": "cert-t1-mono",
+          "label": "T1 residencial/comercial monofásico",
+          "unidad": "unidad",
+          "precio": 405097,
+          "match": {
+            "label": "T1 Residencial / Comercial Monofásico",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "cert-t1-tri-resid",
+          "label": "T1 residencial trifásico",
+          "unidad": "unidad",
+          "precio": 597892,
+          "match": {
+            "label": "T1 Residencial Trifásico",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "cert-t1-tri-comercial",
+          "label": "T1 comercial trifásico",
+          "unidad": "unidad",
+          "precio": 597892,
+          "match": {
+            "label": "T1 Comercial Trifásico",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "cert-t2",
+          "label": "T2, según potencia instalada",
+          "unidad": "unidad",
+          "precio": 31777,
+          "match": {
+            "label": "T2 Según Potencia instalada",
+            "occurrence": 1,
+            "column": 0
+          }
+        },
+        {
+          "id": "cert-t3",
+          "label": "T3, según potencia instalada",
+          "unidad": "unidad",
+          "precio": 31777,
+          "match": {
+            "label": "T3 Según Potencia instalada",
+            "occurrence": 1,
+            "column": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "puesta-tierra",
+      "nombre": "Protocolo puesta a tierra (SRT 900/15)",
+      "items": [
+        {
+          "id": "pat-residencial-comercial",
+          "label": "Residencial / comercial",
+          "unidad": "unidad",
+          "precio": 636071,
+          "match": {
+            "label": "Residencial / Comercial",
+            "occurrence": 2,
+            "column": 0
+          }
+        },
+        {
+          "id": "pat-industrial",
+          "label": "Industrial",
+          "unidad": "unidad",
+          "precio": 636071,
+          "match": {
+            "label": "Industrial",
+            "occurrence": 1,
+            "column": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "grupos-electrogenos",
+      "nombre": "Grupos electrógenos monofásicos",
+      "items": [
+        {
+          "id": "grupo-3-5kva",
+          "label": "Instalación grupo hasta 3,5 kVA (adicional a la instalación eléctrica)",
+          "unidad": "unidad",
+          "precio": 271122,
+          "match": {
+            "label": "Grupos hasta 3,5kVA",
+            "occurrence": 1,
+            "column": 0
+          }
+        }
+      ]
+    }
+  ]
+}
