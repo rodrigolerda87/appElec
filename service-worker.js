@@ -2,7 +2,7 @@
 // una vez instalada. Estrategia: cache-first con actualización en segundo
 // plano (stale-while-revalidate) para los archivos propios de la app.
 
-const CACHE_VERSION = 'pilo-presupuestos-v2';
+const CACHE_VERSION = 'pilo-presupuestos-v3';
 
 const PRECACHE_FILES = [
   './',

@@ -121,15 +121,36 @@ export const TIPOS_AMBIENTE = [
   { id: 'otro', nombre: 'Otro ambiente', iug: 1, tug: 1, tue: 0 },
 ];
 
-export function bocasPorAmbiente(tipoAmbienteId, superficieM2) {
-  const tipo = TIPOS_AMBIENTE.find(t => t.id === tipoAmbienteId) || TIPOS_AMBIENTE[TIPOS_AMBIENTE.length - 1];
-  let { iug, tug, tue } = tipo;
+// Puntos mínimos por (ambiente × grado). Simplificación orientativa de las
+// tablas 770/771 — a más grado, más bocas mínimas exigidas por ambiente.
+const TABLA_BOCAS = {
+  estar_comedor: { minimo: { iug: 1, tug: 2, tue: 0 }, medio: { iug: 1, tug: 3, tue: 0 }, elevado: { iug: 1, tug: 3, tue: 1 }, superior: { iug: 2, tug: 4, tue: 1 } },
+  dormitorio:    { minimo: { iug: 1, tug: 2, tue: 0 }, medio: { iug: 1, tug: 3, tue: 0 }, elevado: { iug: 1, tug: 3, tue: 1 }, superior: { iug: 2, tug: 3, tue: 1 } },
+  cocina:        { minimo: { iug: 1, tug: 2, tue: 1 }, medio: { iug: 1, tug: 3, tue: 2 }, elevado: { iug: 1, tug: 3, tue: 3 }, superior: { iug: 1, tug: 4, tue: 3 } },
+  lavadero:      { minimo: { iug: 1, tug: 1, tue: 1 }, medio: { iug: 1, tug: 1, tue: 1 }, elevado: { iug: 1, tug: 2, tue: 1 }, superior: { iug: 1, tug: 2, tue: 2 } },
+  bano:          { minimo: { iug: 1, tug: 1, tue: 0 }, medio: { iug: 1, tug: 1, tue: 0 }, elevado: { iug: 1, tug: 1, tue: 0 }, superior: { iug: 1, tug: 2, tue: 0 } },
+  pasillo:       { minimo: { iug: 1, tug: 0, tue: 0 }, medio: { iug: 1, tug: 0, tue: 0 }, elevado: { iug: 1, tug: 1, tue: 0 }, superior: { iug: 1, tug: 1, tue: 0 } },
+  garage:        { minimo: { iug: 1, tug: 1, tue: 0 }, medio: { iug: 1, tug: 1, tue: 0 }, elevado: { iug: 1, tug: 2, tue: 0 }, superior: { iug: 1, tug: 2, tue: 1 } },
+  exterior:      { minimo: { iug: 1, tug: 1, tue: 0 }, medio: { iug: 1, tug: 1, tue: 0 }, elevado: { iug: 1, tug: 2, tue: 0 }, superior: { iug: 2, tug: 2, tue: 0 } },
+  deposito:      { minimo: { iug: 1, tug: 1, tue: 0 }, medio: { iug: 1, tug: 2, tue: 0 }, elevado: { iug: 2, tug: 2, tue: 0 }, superior: { iug: 2, tug: 3, tue: 0 } },
+  oficina:       { minimo: { iug: 1, tug: 2, tue: 0 }, medio: { iug: 1, tug: 3, tue: 0 }, elevado: { iug: 1, tug: 4, tue: 0 }, superior: { iug: 2, tug: 4, tue: 0 } },
+  otro:          { minimo: { iug: 1, tug: 1, tue: 0 }, medio: { iug: 1, tug: 1, tue: 0 }, elevado: { iug: 1, tug: 2, tue: 0 }, superior: { iug: 1, tug: 2, tue: 0 } },
+};
+
+export function bocasPorAmbiente(tipoAmbienteId, superficieM2, gradoId = 'medio') {
+  const tabla = TABLA_BOCAS[tipoAmbienteId] || TABLA_BOCAS.otro;
   const s = Number(superficieM2) || 0;
 
-  // Ajustes por superficie: pasillos largos y ambientes grandes piden más bocas.
-  if (tipo.id === 'pasillo' && s > 5) iug += Math.floor(s / 5);
-  if (tipo.id === 'estar_comedor' && s > 18) tug += Math.ceil((s - 18) / 6);
-  if (tipo.id === 'dormitorio' && s > 36) { iug = 2; tue = 1; }
+  // Nota AEA 770: en viviendas <130 m² no debería haber dormitorios >36 m²;
+  // si igualmente lo hay, esos puntos se toman del grado "elevado".
+  let gradoEfectivo = gradoId;
+  if (tipoAmbienteId === 'dormitorio' && s > 36) gradoEfectivo = 'elevado';
+  const base = tabla[gradoEfectivo] || tabla.medio;
+  let { iug, tug, tue } = base;
+
+  // Ajustes por superficie del propio ambiente (más m², más bocas).
+  if (tipoAmbienteId === 'pasillo' && s > 5) iug += Math.floor(s / 5);
+  if (tipoAmbienteId === 'estar_comedor' && s > 18) tug += Math.ceil((s - 18) / 6);
 
   return { iug, tug, tue, total: iug + tug + tue };
 }
@@ -141,7 +162,7 @@ export function calcularInstalacion(ambientes, superficieTotalM2) {
 
   let totalIug = 0, totalTug = 0, totalTue = 0;
   const detalle = ambientes.map(a => {
-    const b = bocasPorAmbiente(a.tipoAmbienteId, a.areaM2);
+    const b = bocasPorAmbiente(a.tipoAmbienteId, a.areaM2, grado.id);
     totalIug += b.iug; totalTug += b.tug; totalTue += b.tue;
     const tipo = TIPOS_AMBIENTE.find(t => t.id === a.tipoAmbienteId);
     return { ...a, tipoAmbienteNombre: tipo ? tipo.nombre : 'Ambiente', bocas: b };

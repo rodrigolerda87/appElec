@@ -11,6 +11,7 @@ import { PlanoCanvas, COLORES_CANALIZACION } from './plano-canvas.js';
 import {
   calcularCaidaTension, SECCIONES_NORMALIZADAS,
   TIPOS_INMUEBLE, TIPOS_AMBIENTE, calcularInstalacion, calcularMateriales,
+  bocasPorAmbiente, determinarGradoElectrificacion,
 } from './calculos.js';
 
 // ---------------------------------------------------------------------
@@ -1088,37 +1089,101 @@ function fileToDataUrl(file) {
   });
 }
 
+// Igual que fileToDataUrl, pero si es un PDF renderiza la primera página a
+// imagen (con pdf.js, el mismo que ya usa la app para leer los precios de
+// AAIERIC) para poder dibujar encima como con cualquier foto.
+async function fileToPlanoDataUrl(file) {
+  const esPdf = file.type === 'application/pdf' || /\.pdf$/i.test(file.name);
+  if (!esPdf) return fileToDataUrl(file);
+
+  const pdfjsLib = await import('../vendor/pdf.min.mjs');
+  pdfjsLib.GlobalWorkerOptions.workerSrc = '../vendor/pdf.worker.min.mjs';
+  const buf = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+  const page = await pdf.getPage(1);
+  const viewport = page.getViewport({ scale: 2 }); // buena resolución para marcar detalle
+  const tmp = document.createElement('canvas');
+  tmp.width = viewport.width;
+  tmp.height = viewport.height;
+  await page.render({ canvasContext: tmp.getContext('2d'), viewport }).promise;
+  return tmp.toDataURL('image/png');
+}
+
 // ---------------------------------------------------------------------
 // VIEW: Inicio
 // ---------------------------------------------------------------------
 const INSTITUCIONALES = [
-  { id: 'aea', nombre: 'AEA · Reglamentación 90364', img: './images/aea.jpg', url: 'https://aea.org.ar/' },
-  { id: 'aaieric', nombre: 'AAIERIC · Costos de mano de obra', img: './images/aaieric.jpg', url: 'https://www.aaieric.org.ar/' },
-  { id: 'prysmian', nombre: 'Prysmian · Cables', img: './images/prysmian.jpg', url: 'https://ar.prysmian.com/' },
-];
-const MARCAS_UTILES = [
-  { nombre: 'Schneider Electric', url: 'https://www.se.com/ar/es/' },
-  { nombre: 'IRAM (normas)', url: 'https://www.iram.org.ar/' },
+  { nombre: 'AEA · Reglamentación 90364', img: 'https://aea.org.ar/wp-content/uploads/2020/04/90364Conjunto.jpg', url: 'https://aea.org.ar/reglamentaciones/digitales/' },
+  { nombre: 'AAIERIC', img: 'https://www.aaieric.org.ar/images/comunicados/Logo%20de%20AAIERIC%20Prensa%20Facebook.jpg', url: 'https://aaieric.org.ar/' },
+  { nombre: 'Prysmian · Cables', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4ehbkRBQMQaD9EFJcQ0hxvhtThNDUF-yldW0v73qKUJQJRMs2v4k8l9uy&s=10', url: 'https://ar.prysmian.com/es' },
+  { nombre: 'Schneider Electric', img: 'https://www.se.com/dam-assets/2hgFSDSuWfHGU9uzMz3I-g/FoPovHKlWpMiU0341m8gZQ/BUILDER.IO%7CSquare/se_logo_social_shared_image_004_BUILDER.IOSquare.webp', url: 'https://www.se.com/ar/es/' },
+  { nombre: 'IRAM · Normas', img: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/Positiva_COLOR_fondo-blanco.jpg', url: 'https://www.iram.org.ar/' },
 ];
 const COMERCIOS_LOCALES = [
-  { id: 'donroberto', nombre: 'Don Roberto', img: './images/don-roberto.jpg', url: 'https://www.instagram.com/ferreteriadonroberto/?hl=es' },
-  { id: 'electroavenida', nombre: 'Electroavenida', img: './images/electroavenida.jpg', url: 'https://www.instagram.com/electro_avenida/?hl=es-la' },
-  { id: 'baudracco', nombre: 'Distribuidora Baudracco', img: './images/baudracco.jpg', url: 'https://www.instagram.com/distribuidorabaudracco/' },
-  { id: 'mecan', nombre: 'Mecan', img: './images/mecan.jpg', url: 'https://www.instagram.com/mecanlotiene' },
+  { nombre: 'Don Roberto', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU2o5Nr9m3oile5nXuXH_kpDXHB2byoW8NeQ49W-TORk5Uch0bywbA6zs&s=10' },
+  { nombre: 'Electroavenida', img: 'https://media.licdn.com/dms/image/v2/D4D0BAQGjyYo--Yh0OA/company-logo_200_200/company-logo_200_200/0/1684328245032?e=2147483647&v=beta&t=C718asNiywZ1hYdqRKdpx6sCVVMI_BOJp-uJC2mU0zE' },
+  { nombre: 'Distribuidora Baudracco', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSi8Bq64vQ2bBdFY8bBe-3hpyN4umwh4C24HU0l99NB_I-NCtCtEhZPNbqo&s=10' },
+  { nombre: 'Mecan', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrMrLVXt1bVQI8d03lFQGaqRiqfkoXtCw5Y7J3S5H1txoWckAlx9lWygr6&s=10' },
 ];
 
-function carouselCard(item) {
+function acSlide(item, i, linked) {
+  const img = `<img src="${esc(item.img)}" alt="${esc(item.nombre)}" loading="lazy" onerror="this.parentElement.classList.add('img-fallback')">`;
+  const inner = `<div class="ac-slide-img" data-fallback="${esc(item.nombre)}">${img}</div><div class="ac-slide-label">${esc(item.nombre)}</div>`;
+  return linked && item.url
+    ? `<div class="ac-slide" data-i="${i}"><a href="${esc(item.url)}" target="_blank" rel="noopener">${inner}</a></div>`
+    : `<div class="ac-slide" data-i="${i}">${inner}</div>`;
+}
+function autoCarouselHtml(id, items, linked) {
   return `
-    <a class="carousel-card" href="${esc(item.url)}" target="_blank" rel="noopener">
-      <div class="carousel-img" data-fallback="${esc(item.nombre)}">
-        <img src="${esc(item.img)}" alt="${esc(item.nombre)}" loading="lazy"
-          onerror="this.parentElement.classList.add('img-fallback'); this.remove();">
-      </div>
-      <div class="carousel-label">${esc(item.nombre)}</div>
-    </a>`;
+    <div class="auto-carousel" id="${id}">
+      <div class="ac-track">${items.map((it, i) => acSlide(it, i, linked)).join('')}</div>
+      <button class="ac-arrow ac-prev" type="button" aria-label="Anterior">‹</button>
+      <button class="ac-arrow ac-next" type="button" aria-label="Siguiente">›</button>
+      <div class="ac-dots">${items.map((_, i) => `<button class="ac-dot ${i === 0 ? 'active' : ''}" type="button" data-i="${i}"></button>`).join('')}</div>
+    </div>`;
+}
+
+let homeCarouselTimers = [];
+function initAutoCarousel(id, intervalMs = 4500) {
+  const root = document.getElementById(id);
+  if (!root) return;
+  const track = root.querySelector('.ac-track');
+  const slides = [...root.querySelectorAll('.ac-slide')];
+  const dots = [...root.querySelectorAll('.ac-dot')];
+  if (!slides.length) return;
+  let idx = 0, timer = null;
+
+  function go(i, silent) {
+    idx = (i + slides.length) % slides.length;
+    track.style.transform = `translateX(-${idx * 100}%)`;
+    dots.forEach((d, di) => d.classList.toggle('active', di === idx));
+    if (!silent) resetTimer();
+  }
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => go(idx + 1, true), intervalMs);
+    homeCarouselTimers.push(timer);
+  }
+  root.querySelector('.ac-prev').onclick = () => go(idx - 1);
+  root.querySelector('.ac-next').onclick = () => go(idx + 1);
+  dots.forEach(d => { d.onclick = () => go(Number(d.dataset.i)); });
+
+  let dragX = null;
+  track.addEventListener('pointerdown', e => { dragX = e.clientX; });
+  track.addEventListener('pointerup', e => {
+    if (dragX === null) return;
+    const dx = e.clientX - dragX;
+    dragX = null;
+    if (Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1));
+  });
+
+  go(0, true);
+  resetTimer();
 }
 
 function renderHome() {
+  homeCarouselTimers.forEach(clearInterval);
+  homeCarouselTimers = [];
   const el = document.getElementById('view-home');
   el.innerHTML = `
     <div class="page-head">
@@ -1139,16 +1204,13 @@ function renderHome() {
     </div>
 
     <div class="card-title" style="margin-top:22px;">Normativa y referencias</div>
-    <div class="carousel">${INSTITUCIONALES.map(carouselCard).join('')}</div>
-
-    <div class="chip-row">
-      ${MARCAS_UTILES.map(m => `<a class="chip-link" href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.nombre)}</a>`).join('')}
-    </div>
+    ${autoCarouselHtml('carousel-institucional', INSTITUCIONALES, true)}
 
     <div class="card-title" style="margin-top:22px;">Comercios de Venado Tuerto</div>
-    <div class="carousel">${COMERCIOS_LOCALES.map(carouselCard).join('')}</div>
-    <p class="hint" style="margin-top:8px;">Las imágenes de esta pantalla son opcionales: guardá tus propias fotos/logos en la carpeta <span class="mono">images/</span> del proyecto con esos mismos nombres de archivo y van a aparecer solas.</p>
+    ${autoCarouselHtml('carousel-comercios', COMERCIOS_LOCALES, false)}
   `;
+  initAutoCarousel('carousel-institucional');
+  initAutoCarousel('carousel-comercios');
 }
 
 // ---------------------------------------------------------------------
@@ -1342,9 +1404,9 @@ function renderElectrifEditor() {
 
     <div class="card" id="electrif-upload-card" style="${savedData && savedData.imageDataUrl ? 'display:none;' : ''}">
       <div class="card-title">Subí el plano</div>
-      <div class="logo-drop" id="plano-drop">Tocá para elegir una foto o imagen del plano (JPG o PNG)</div>
-      <input type="file" id="plano-file" accept="image/*" style="display:none;">
-      <p class="hint">Después vas a poder marcar la escala, dibujar cada ambiente y trazar las canalizaciones directamente sobre esta imagen.</p>
+      <div class="logo-drop" id="plano-drop">Tocá para elegir una foto, imagen o PDF del plano</div>
+      <input type="file" id="plano-file" accept="image/*,.pdf,application/pdf" style="display:none;">
+      <p class="hint">Después vas a poder marcar la escala, dibujar cada ambiente y trazar las canalizaciones directamente sobre esta imagen. Si subís un PDF, se usa la primera página.</p>
     </div>
 
     <div id="electrif-canvas-area" style="${savedData && savedData.imageDataUrl ? '' : 'display:none;'}">
@@ -1357,6 +1419,13 @@ function renderElectrifEditor() {
             <button class="btn btn-sm mode-btn active" data-mode="ver">👁 Ver</button>
           </div>
           <div class="toolbar-actions" id="toolbar-actions"></div>
+        </div>
+        <div class="zoom-controls">
+          <button class="btn btn-sm" id="zoom-out" title="Alejar">−</button>
+          <span class="zoom-level" id="zoom-level">100%</span>
+          <button class="btn btn-sm" id="zoom-in" title="Acercar">+</button>
+          <button class="btn btn-sm btn-ghost" id="zoom-reset">Restablecer</button>
+          <span class="hint" style="margin-left:auto;">Pellizcá con dos dedos para hacer zoom · en modo "Ver" arrastrá para mover el plano</span>
         </div>
         <div id="plano-canvas-wrap"><canvas id="plano-canvas"></canvas></div>
         <p class="hint" id="scale-hint" style="margin-top:8px;"></p>
@@ -1400,8 +1469,14 @@ function renderElectrifEditor() {
       setActiveMode('ver');
     }, resetFn),
     onChange: () => refreshPanels(),
+    onZoomChange: (pct) => { const el = document.getElementById('zoom-level'); if (el) el.textContent = `${pct}%`; },
   });
   state.planoEngine = engine;
+
+  document.getElementById('zoom-in').onclick = () => { engine.zoomBy(1.4); updateZoomLabel(); };
+  document.getElementById('zoom-out').onclick = () => { engine.zoomBy(1 / 1.4); updateZoomLabel(); };
+  document.getElementById('zoom-reset').onclick = () => { engine.resetView(); updateZoomLabel(); };
+  function updateZoomLabel() { document.getElementById('zoom-level').textContent = `${engine.zoomPercent()}%`; }
 
   function showCanvasArea() {
     document.getElementById('electrif-upload-card').style.display = 'none';
@@ -1412,15 +1487,26 @@ function renderElectrifEditor() {
     engine.loadFromData(savedData).then(refreshPanels);
   }
 
-  // --- Subida de plano ---
+  // --- Subida de plano (foto, imagen o PDF) ---
   document.getElementById('plano-drop').onclick = () => document.getElementById('plano-file').click();
   document.getElementById('plano-file').onchange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    const dataUrl = await fileToDataUrl(file);
-    await engine.setImage(dataUrl);
-    showCanvasArea();
-    refreshPanels();
+    const dropEl = document.getElementById('plano-drop');
+    const original = dropEl.textContent;
+    dropEl.textContent = 'Procesando el plano…';
+    dropEl.style.pointerEvents = 'none';
+    try {
+      const dataUrl = await fileToPlanoDataUrl(file);
+      await engine.setImage(dataUrl);
+      showCanvasArea();
+      refreshPanels();
+    } catch (err) {
+      console.error(err);
+      toast('No se pudo leer ese archivo. Probá con otra foto, imagen o PDF.', 'error');
+      dropEl.textContent = original;
+      dropEl.style.pointerEvents = '';
+    }
   };
 
   // --- Modos de dibujo ---
@@ -1435,7 +1521,16 @@ function renderElectrifEditor() {
   function renderToolbarActions(mode) {
     const host = document.getElementById('toolbar-actions');
     if (mode === 'ambiente') {
-      host.innerHTML = `<button class="btn btn-sm" id="ta-close-room">Cerrar ambiente</button><button class="btn btn-sm btn-ghost" id="ta-undo">Deshacer punto</button>`;
+      host.innerHTML = `
+        <div class="field" style="margin:0;min-width:170px;">
+          <select id="ta-tipo-ambiente" title="Tipo de ambiente que estás marcando">
+            ${TIPOS_AMBIENTE.map(t => `<option value="${t.id}" ${t.id === engine.tipoAmbienteActivo ? 'selected' : ''}>${esc(t.nombre)}</option>`).join('')}
+          </select>
+        </div>
+        <button class="btn btn-sm" id="ta-close-room">Cerrar ambiente</button>
+        <button class="btn btn-sm btn-ghost" id="ta-undo">Deshacer punto</button>
+      `;
+      host.querySelector('#ta-tipo-ambiente').onchange = e => engine.setTipoAmbienteActivo(e.target.value);
       host.querySelector('#ta-close-room').onclick = () => engine.closeActiveRoom();
       host.querySelector('#ta-undo').onclick = () => engine.undoLastPoint();
     } else if (mode === 'canalizacion') {
@@ -1461,8 +1556,8 @@ function renderElectrifEditor() {
   // --- Paneles (ambientes / canalizaciones / escala) ---
   function refreshPanels() {
     document.getElementById('scale-hint').textContent = engine.hasScale()
-      ? `Escala definida: ${engine.pixelsPerMeter.toFixed(1)} px/m.`
-      : 'Todavía no marcaste la escala — usá el modo "Escala" y tocá dos puntos de una medida conocida (ej: el ancho de una puerta, 0,80 m) antes de dibujar ambientes.';
+      ? `Escala definida: ${engine.pixelsPerMeter.toFixed(1)} px/m. Podés volver a calibrarla cuando quieras desde el modo "Escala".`
+      : 'Todavía no marcaste la escala — hacé zoom para ubicar bien los dos puntos, usá el modo "Escala" y tocá una medida conocida (ej: el ancho de una puerta, 0,80 m) antes de dibujar ambientes.';
     document.getElementById('electrif-rooms-list').innerHTML = ambientesListHtml(engine);
     document.getElementById('rooms-count').textContent = engine.rooms.length;
     document.getElementById('electrif-canal-list').innerHTML = canalizacionesListHtml(engine);
@@ -1510,8 +1605,9 @@ function renderElectrifEditor() {
 
 function ambientesListHtml(engine) {
   if (!engine.rooms.length) return '<p class="hint">Todavía no marcaste ambientes. Elegí el modo "Ambiente" arriba y tocá las esquinas sobre el plano (cerrá tocando cerca del primer punto, o con el botón "Cerrar ambiente").</p>';
+  const grado = determinarGradoElectrificacion(engine.superficieTotalM2());
   return engine.rooms.map(r => {
-    const b = bocasPorAmbiente(r.tipoAmbienteId, r.areaM2);
+    const b = bocasPorAmbiente(r.tipoAmbienteId, r.areaM2, grado.id);
     return `
     <div class="list-row" data-room="${r.id}">
       <div>
