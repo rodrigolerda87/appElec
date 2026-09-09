@@ -1,0 +1,36 @@
+name: Chequear precios AAIERIC
+
+# Corre solo una vez por día, y también se puede disparar a mano desde la
+# pestaña "Actions" del repositorio (botón "Run workflow") si querés
+# forzar un chequeo antes de que le toque.
+on:
+  schedule:
+    - cron: '0 13 * * *'   # 13:00 UTC = 10:00 en Argentina (ART, UTC-3)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias
+        run: npm install pdfjs-dist@6
+
+      - name: Chequear la web de AAIERIC
+        run: node scripts/check-aaieric.mjs
+
+      - name: Guardar cambios si hay precios nuevos
+        run: |
+          git config user.name "aaieric-price-bot"
+          git config user.email "actions@github.com"
+          git add data/estado-aaieric.json
+          git diff --cached --quiet && echo "Sin cambios." || git commit -m "Chequeo automático de precios AAIERIC"
+          git push
