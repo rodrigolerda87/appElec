@@ -1,0 +1,32 @@
+name: Compilar APK de prueba
+
+# Se dispara a mano desde la pestaña "Actions" del repositorio (botón
+# "Run workflow"). Arma un APK de PRUEBA (firma de debug, no la de Play
+# Store) para instalar y probar en tu propio celular.
+on:
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - uses: android-actions/setup-android@v3
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Compilar APK (debug)
+        run: gradle -p android assembleDebug --no-daemon
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pilo-presupuestos-debug-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
