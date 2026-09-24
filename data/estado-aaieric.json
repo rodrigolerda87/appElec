@@ -1,5 +1,5 @@
 {
-  "verificadoEn": "2026-09-23T13:04:47.765Z",
+  "verificadoEn": "2026-09-24T13:04:11.163Z",
   "fuente": "https://aaieric.org.ar/costos-mano-de-obra",
   "periodoDetectado": "Julio 2026",
   "precios": {
@@ -105,5 +105,5 @@
     "aplique-simple"
   ],
   "huboError": true,
-  "mensajeError": "Promise.withResolvers is not a function"
+  "mensajeError": "fetch failed"
 }
